@@ -1,79 +1,76 @@
 var ownCoins = 30000;
-var won = false;
 var fourBlack = 0;
 var fourRed = 0;
-var bet = 20;
-var betThisRound = false;
+var bet = 10;
+var lost = false;
 var colorLastBet = "";
 var colorRed = "link num_round red";
 var colorBlack = "link num_round black";
 var canBet = document.getElementsByClassName("btn_bg")[0].className;
-var posibleBet = "entry_btn red enabled";
-var lastColor = document.getElementsByClassName("latest_games_links f0")[0].className;
+var posibleBetRed = "entry_btn red enabled";
+var posibleBetBlack = "entry_btn black enabled";
+var lastColorElement = document.getElementsByClassName("latest_games_links f0")[0];
 
-function checkColors(fourRed, fourBlack, lastColor){
-  if (lastColor.localeCompare(colorBlack)) {
-    fourBlack += 1;
-    console.log("perfect");
-  }
-
-  else {
-    fourBlack = 0;
-  }
-
-  if (lastColor.localeCompare(colorRed)) {
-    fourRed += 1;
-  }
-
-  else {
+function checkColors(){
+  var lastColorFinal = lastColorElement.firstElementChild.className;
+  if (lastColorFinal.localeCompare(colorBlack) == 0) {
+    fourBlack = fourBlack + 1;
     fourRed = 0;
   }
 
-  return fourRed, fourBlack;
+  if (lastColorFinal.localeCompare(colorRed) == 0){
+    fourRed = fourRed + 1;
+    fourBlack = 0;
+  }
 }
 
-
-function betingRed(colorLastBet) {
+function betingRed() {
     document.getElementsByClassName('entry_btn red enabled')[0].click();
     colorLastBet = "link num_round red";
-    return colorLastBet;
 }
 
-function betingBlack(colorLastBet) {
+function betingBlack() {
     document.getElementsByClassName('entry_btn black enabled')[0].click();
     colorLastBet = "link num_round black";
-    return colorLastBet;
 }
 
-function winCheck(won){
-  if (lastColor.localeCompare(colorLastBet)){
+function winCheck(){
+  var lastColorFinal = lastColorElement.firstElementChild.className;
+  if (lastColorFinal.localeCompare(colorLastBet) == 0){
     ownCoins += bet;
-    bet = 20;
+    bet = 10;
+    document.getElementsByClassName("has-input")[0].innerHTML = '<input class="has-input" value= 'bet'>';
+
     fourRed = 0;
     fourBlack = 0;
-    won = true;
-    return won;
+    lost = false;
   }
 
   else {
+    lost = true;
     ownCoins -= bet;
-    bet = bet*2.10;
+    bet = bet*2;
     document.getElementsByClassName("has-input")[0].value = bet;
   }
 }
 
 
-if (canBet.localeCompare(posibleBet)) {
-  do{
-    checkColors(fourRed, fourBlack, lastColor);
-    if (fourRed >= 0) {
-      betingRed();
-    }
+  function program(){
+    var canBet = document.getElementsByClassName("btn_bg")[0].firstElementChild.className;
+    if ((canBet.localeCompare(posibleBetRed) == 0) || (canBet.localeCompare(posibleBetBlack) == 0)) {
+      if(lost === false){
+        checkColors();
+      }
 
-    if (fourBlack >= 4) {
-      betingBlack();
-    }
+      if (fourRed >= 3) {
+        betingBlack();
+      }
 
-    winCheck(won);
-  } while (won === false);
-}
+      if (fourBlack >= 3) {
+        betingRed();
+      }
+      winCheck();
+    }
+  }
+
+setInterval(betingRed, 20000);
