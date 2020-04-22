@@ -39,10 +39,12 @@ function winCheck(){
     fourRed = 0;
     fourBlack = 0;
     betted = false;
-    do{
-      document.getElementsByClassName("bet_btn")[3].click();
-      halfBet = halfBet - 1;
-    }while(halfBet > 0);
+    if (halfBet > 0){
+      do{
+        document.getElementsByClassName("bet_btn")[3].click();
+        halfBet = halfBet - 1;
+      }while(halfBet > 0);
+    }
   }
 
   if ((lastColorFinal.localeCompare(colorLastBet) != 0) && (betted === true)) {
@@ -57,12 +59,12 @@ function winCheck(){
       console.log("Can bet");
       checkColors();
       winCheck();
-      if (fourRed >= 2) {
+      if (fourRed >= 3) {
         betingBlack();
         console.log("Beted black");
       }
 
-      if (fourBlack >= 2) {
+      if (fourBlack >= 3) {
         betingRed();
         console.log("Beted red");
       }
