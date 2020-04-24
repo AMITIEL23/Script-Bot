@@ -20,13 +20,13 @@ function checkColors(){
   }
 }
 
-function betingRed() {
+function bettingRed() {
     document.getElementsByClassName('entry_btn red enabled')[0].click();
     betted = true;
     colorLastBet = "link num_round red";
 }
 
-function betingBlack() {
+function bettingBlack() {
     document.getElementsByClassName('entry_btn black enabled')[0].click();
     betted = true;
     colorLastBet = "link num_round black";
