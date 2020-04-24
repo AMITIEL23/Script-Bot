@@ -5,7 +5,6 @@ var halfBet = 0;
 var colorLastBet = "";
 var colorRed = "link num_round red";
 var colorBlack = "link num_round black";
-var e = new KeyboardEvent('keydown',{'keyCode':32,'which':32});
 var lastColorElement = document.getElementsByClassName("latest_games_links f0")[0];
 
 function checkColors(){
@@ -59,12 +58,12 @@ function winCheck(){
       console.log("Can bet");
       checkColors();
       winCheck();
-      if (fourRed >= 3) {
+      if (fourRed >= 4) {
         betingBlack();
         console.log("Beted black");
       }
 
-      if (fourBlack >= 3) {
+      if (fourBlack >= 4) {
         betingRed();
         console.log("Beted red");
       }
