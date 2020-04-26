@@ -59,12 +59,12 @@ function winCheck(){
       checkColors();
       winCheck();
       if (fourRed >= 4) {
-        betingBlack();
+        bettingBlack();
         console.log("Beted black");
       }
 
       if (fourBlack >= 4) {
-        betingRed();
+        bettingRed();
         console.log("Beted red");
       }
   }
